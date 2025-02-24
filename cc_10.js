@@ -24,7 +24,7 @@ console.log(prod1.getDetails());
 
 
 //Task 2 Creating an Order Class
-class order { constructor(orderId, product, quantity) {
+class Order { constructor(orderId, product, quantity) {
     this.orderId = orderId;
     this.product = product;
     this.quantity = quantity; 
@@ -33,7 +33,7 @@ class order { constructor(orderId, product, quantity) {
 } // Creating a class order with properties
 getOrderDetails() {return `Order ID: ${this.orderId}, Product${this.product}, Quantity: ${this.quantity}, Total Price: $${this.product.price * this.quantity}`}
 } // Shows order details
-const order1 = new order(501, prod1, 2);
+const order1 = new Order(501, prod1, 2);
 console.log(order1.getOrderDetails()); 
 // Expected output: "Order ID: 501, Product: Laptop, Quantity: 2, Total Price: $2400"
 
@@ -47,8 +47,22 @@ class Inventory { constructor() {
     this.orders = []; 
 } addProduct(product) {this.products.push(product)}
 listProducts() { this.products.forEach(product => console.log(product.getDetails()))}
+//Task 4 Implementing Order Management 
+placeOrder(orderId, product , quantity) { if (product.stock >= quantity ) {
+    const order = new Order(orderId, product, quantity);
+    this.orders.push(order);
+} // Added Orders along with methods to create new orders 
+} listOrders() {this.orders.forEach(order => console.log (order.getOrderDetails()))} 
+//Logs placed Orders 
 }
+
+
 const inventory = new Inventory();
 inventory.addProduct(prod1);
 inventory.listProducts();
 // Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 5"
+inventory.placeOrder(601, prod1, 2);
+inventory.listOrders();
+// Expected output: "Order ID: 601, Product: Laptop, Quantity: 2, Total Price: $2400"
+console.log(prod1.getDetails());
+// Expected output: "Product: Laptop, ID: 101, Price: $1200, Stock: 3"
